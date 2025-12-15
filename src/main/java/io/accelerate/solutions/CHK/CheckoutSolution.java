@@ -37,8 +37,14 @@ public class CheckoutSolution {
                     total += ((itemQuantity/2)*45) + ((itemQuantity%2)*prices[i]);
                     break;
                 case 'E':
-                    if( itemQuantity / 2 > basket.get('B') ) total -= basket.get('B') * 30;
-                    else total -= (itemQuantity / 2) * 30;
+                    if( itemQuantity / 2 > basket.get('B') ) {
+                        total -= basket.get('B') * 30;
+                        basket.put('B', 0);
+                    }
+                    else{
+                        total -= (itemQuantity / 2) * 30;
+                        basket.put('B', basket.get('B') - (itemQuantity / 2));
+                    }
                     total += prices[i] * itemQuantity;
                     break;
                 default:
@@ -51,5 +57,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
