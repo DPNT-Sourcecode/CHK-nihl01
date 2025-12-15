@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class CheckoutSolution {
     public Integer checkout(String skus) {
         HashMap<Character, Integer> basket = new HashMap<Character, Integer>();
-        Character[] items = {'A', 'B', 'C', 'D'};
-        Integer[] prices = {50, 30, 20, 15};
+        Character[] items = {'A', 'B', 'C', 'D', 'E'};
+        Integer[] prices = {50, 30, 20, 15, 40};
         Integer total = 0;
 
         for (Character item : items) {
@@ -20,21 +20,35 @@ public class CheckoutSolution {
             if (!basket.containsKey(skus.charAt(i))) {
                 return -1;
             }
-            else basket.put(skus.charAt(i), basket.get(skus.charAt(i)) + 1);
+            basket.put(skus.charAt(i), basket.get(skus.charAt(i)) + 1);
         }
 
         for (int i = 0; i < items.length; i++){
-            if (items[i].equals('A')) {
-                total += ((basket.get(items[i]) /3)*130) + ((basket.get(items[i])%3)*prices[i]);
-            }
-            else if (items[i].equals('B')) {
-                total += ((basket.get(items[i])/2)*45) + ((basket.get(items[i])%2)*prices[i]);
-            }
-            else {
-                total += prices[i]*basket.get(items[i]);
+            Integer itemQuantity = basket.get(items[i]);
+            switch (items[i]) {
+                case 'A':
+                    total += itemQuantity / 5 * 200;
+
+                    total += ( ( itemQuantity % 5 ) / 3 ) * 130;
+
+                    total += ( ( itemQuantity % 5 ) % 3 ) * prices[i];
+                    break;
+                case 'B':
+                    total += ((itemQuantity/2)*45) + ((itemQuantity%2)*prices[i]);
+                    break;
+                case 'E':
+                    basket.get('B') ;
+                    total -= itemQuantity / 2 ;
+                    total += prices[i] * itemQuantity;
+                    break;
+                default:
+                    total += prices[i] * itemQuantity;
+                    break;
+
             }
         }
 
         return total;
     }
 }
+
