@@ -46,9 +46,8 @@ public class CheckoutSolution {
                     total += prices[i] * itemQuantity;
                     break;
                 case 'F':
-                    if( itemQuantity >= 3) {
-                        basket.put('F', basket.get('F') - (itemQuantity / 2));
-                    }
+                    int freeF = itemQuantity / 3;
+                    basket.put('F', itemQuantity - freeF);
                     total += prices[i] * basket.get('F');
                     break;
                 default:
@@ -61,5 +60,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
