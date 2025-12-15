@@ -10,16 +10,18 @@ public class CheckoutSolution {
         Integer[] prices = {50, 30, 20, 15};
         Integer total = 0;
 
-        for (String sku : skus.split(",")) {
+        System.out.println(skus);
+
+        for (String sku : skus.split("-")) {
             if (!basket.containsKey(sku)) {
-                basket.put(sku, 0);
+                basket.put(sku, 1);
             }
             else basket.put(sku, basket.get(sku) + 1);
         }
 
         for (int i = 0; i < items.length; i++){
             if (items[i].equals("A")) {
-                total += ((basket.get(items[i])/3)*130) + ((basket.get(items[i])%3)*prices[i]);
+                total += ((basket.get(items[i]) /3)*130) + ((basket.get(items[i])%3)*prices[i]);
             }
             else if (items[i].equals("B")) {
                 total += ((basket.get(items[i])/2)*45) + ((basket.get(items[i])%2)*prices[i]);
@@ -28,9 +30,10 @@ public class CheckoutSolution {
                 total += prices[i]*basket.get(items[i]);
             }
         }
-        System.out.println(skus);
+
 
 
         return total;
     }
 }
+
