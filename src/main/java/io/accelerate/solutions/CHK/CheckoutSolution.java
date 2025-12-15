@@ -60,6 +60,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
