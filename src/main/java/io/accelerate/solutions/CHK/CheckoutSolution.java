@@ -7,28 +7,27 @@ import java.util.HashMap;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        HashMap<Char, Integer> basket = new HashMap<String, Integer>();
-        String[] items = {"A", "B", "C", "D"};
+        HashMap<Character, Integer> basket = new HashMap<Character, Integer>();
+        Character[] items = {'A', 'B', 'C', 'D'};
         Integer[] prices = {50, 30, 20, 15};
         Integer total = 0;
 
-        for (String item : items) {
+        for (Character item : items) {
             basket.put(item, 0);
         }
 
         for (int i = 0; i < skus.length(); i++) {
-            //if (!Arrays.asList(items).contains(sku)) return -1;
             if (!basket.containsKey(skus.charAt(i))) {
                 return -1;
             }
-            else basket.put(sku, basket.get(sku) + 1);
+            else basket.put(skus.charAt(i), basket.get(skus.charAt(i)) + 1);
         }
 
         for (int i = 0; i < items.length; i++){
-            if (items[i].equals("A")) {
+            if (items[i].equals('A')) {
                 total += ((basket.get(items[i]) /3)*130) + ((basket.get(items[i])%3)*prices[i]);
             }
-            else if (items[i].equals("B")) {
+            else if (items[i].equals('B')) {
                 total += ((basket.get(items[i])/2)*45) + ((basket.get(items[i])%2)*prices[i]);
             }
             else {
@@ -36,11 +35,10 @@ public class CheckoutSolution {
             }
         }
 
-
-
         return total;
     }
 }
+
 
 
 
