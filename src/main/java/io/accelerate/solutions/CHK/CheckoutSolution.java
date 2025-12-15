@@ -17,13 +17,13 @@ public class CheckoutSolution {
 
         for (int i = 0; i < items.length; i++){
             if (items[i].equals("A")) {
-                total += 
+                total += ((basket.get(items[i])/3)*130) + ((basket.get(items[i])%3)*prices[i]);
             }
             else if (items[i].equals("B")) {
-
+                total += ((basket.get(items[i])/2)*45) + ((basket.get(items[i])%2)*prices[i]);
             }
             else {
-
+                total += prices[i]*basket.get(items[i]);
             }
         }
         System.out.println(skus);
@@ -32,6 +32,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
