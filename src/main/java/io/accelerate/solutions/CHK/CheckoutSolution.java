@@ -14,10 +14,14 @@ public class CheckoutSolution {
 
         System.out.println(skus);
 
+        for (String item : items) {
+            basket.put(item, 0);
+        }
+
         for (String sku : skus.split("-")) {
-            if (!Arrays.asList(items).contains(sku)) return -1;
+            //if (!Arrays.asList(items).contains(sku)) return -1;
             if (!basket.containsKey(sku)) {
-                basket.put(sku, 1);
+                return -1;
             }
             else basket.put(sku, basket.get(sku) + 1);
         }
@@ -39,5 +43,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
