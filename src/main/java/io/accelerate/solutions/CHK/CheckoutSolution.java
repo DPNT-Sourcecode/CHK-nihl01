@@ -11,7 +11,9 @@ public class CheckoutSolution {
         Integer total = 0;
 
         for (String sku : skus.split(",")) {
-            if (!basket.containsKey(sku)) basket.put(sku, 0);
+            if (!basket.containsKey(sku)) {
+                basket.put(sku, 0);
+            }
             else basket.put(sku, basket.get(sku) + 1);
         }
 
@@ -32,7 +34,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
