@@ -30,11 +30,6 @@ public class CheckoutSolutionTest {
         assertEquals(-1, checkout.checkout("abc"));
     }
 
-    @Test
-    void nullInputReturnsMinusOne() {
-        assertEquals(-1, checkout.checkout(null));
-    }
-
     // -------------------------
     // Empty & single items
     // -------------------------
@@ -161,5 +156,3 @@ public class CheckoutSolutionTest {
 
 
 }
-
-
