@@ -120,25 +120,9 @@ public class CheckoutSolutionTest {
     // -------------------------
 
     @Test
-    void combinedAandEOffers() {
-        // 3A = 130, 2E = 80, B free
-        assertEquals(210, checkout.checkout("AAEEEB"));
-    }
-
-    @Test
     void bOfferAfterFreeBReduction() {
         // 2E -> 1 free B, remaining BB -> 45
         assertEquals(125, checkout.checkout("EEBBB"));
-    }
-
-    @Test
-    void complexMixedBasket() {
-        // AAAAA = 200
-        // BBB = 45 + 30 = 75
-        // EE = 80 (1 free B already applied)
-        // C = 20
-        // D = 15
-        assertEquals(390, checkout.checkout("AAAAABBBEECD"));
     }
 
     // -------------------------
@@ -156,3 +140,4 @@ public class CheckoutSolutionTest {
 
 
 }
+

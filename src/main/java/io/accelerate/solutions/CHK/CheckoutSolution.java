@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class CheckoutSolution {
     public Integer checkout(String skus) {
         HashMap<Character, Integer> basket = new HashMap<Character, Integer>();
-        Character[] items = {'E', 'A', 'B', 'C', 'D'};
-        Integer[] prices = {40, 50, 30, 20, 15};
+        Character[] items = {'F','E', 'A', 'B', 'C', 'D'};
+        Integer[] prices = {10,40, 50, 30, 20, 15};
         Integer total = 0;
 
         for (Character item : items) {
@@ -45,6 +45,12 @@ public class CheckoutSolution {
                     }
                     total += prices[i] * itemQuantity;
                     break;
+                case 'F':
+                    if( itemQuantity > 3) {
+                        basket.put('F', basket.get('F') - (itemQuantity / 2));
+                    }
+                    total += prices[i] * itemQuantity;
+                    break;
                 default:
                     total += prices[i] * itemQuantity;
                     break;
@@ -55,3 +61,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
