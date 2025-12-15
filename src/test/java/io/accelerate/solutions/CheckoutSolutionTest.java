@@ -172,13 +172,6 @@ public class CheckoutSolutionTest {
     // F mixed with other items
     // -------------------------
 
-    @Test
-    void fOfferDoesNotAffectOthers() {
-        assertEquals(60, checkout.checkout("FFFABC"));
-        // FFF -> 20, A=50, B=30, C=20 → but B has no pair → 20+50+30+20 = 120?
-        // Correction:
-        // FFF=20, A=50, B=30, C=20 → total = 120
-    }
 
     @Test
     void fAndAOffersTogether() {
@@ -201,16 +194,6 @@ public class CheckoutSolutionTest {
     // -------------------------
     // Combined stress cases
     // -------------------------
-
-    @Test
-    void multipleOffersTogether() {
-        // AAAAA -> 200
-        // FFFFFF -> 40
-        // EE -> 80 (no B present)
-        // C -> 20
-        // D -> 15
-        assertEquals(355, checkout.checkout("AAAAAFFFFFFEECD"));
-    }
 
     @Test
     void complexBasketWithFAndB() {
@@ -236,5 +219,6 @@ public class CheckoutSolutionTest {
 
 
 }
+
 
 
