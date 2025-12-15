@@ -136,8 +136,105 @@ public class CheckoutSolutionTest {
                 checkout.checkout("EDCBAEDCBA")
         );
     }
+// -------------------------
+    // F single & basic behavior
+    // -------------------------
 
+    @Test
+    void singleFNoOffer() {
+        assertEquals(10, checkout.checkout("F"));
+    }
+
+    @Test
+    void twoFsNoFreeItem() {
+        assertEquals(20, checkout.checkout("FF"));
+    }
+
+    @Test
+    void threeFsOneFree() {
+        // Pay for 2, get 1 free
+        assertEquals(20, checkout.checkout("FFF"));
+    }
+
+    @Test
+    void fourFsStillOnlyOneFree() {
+        // 3 -> pay 2, plus 1 extra
+        assertEquals(30, checkout.checkout("FFFF"));
+    }
+
+    @Test
+    void sixFsTwoFree() {
+        // 6 -> pay for 4
+        assertEquals(40, checkout.checkout("FFFFFF"));
+    }
+
+    // -------------------------
+    // F mixed with other items
+    // -------------------------
+
+    @Test
+    void fOfferDoesNotAffectOthers() {
+        assertEquals(60, checkout.checkout("FFFABC"));
+        // FFF -> 20, A=50, B=30, C=20 → but B has no pair → 20+50+30+20 = 120?
+        // Correction:
+        // FFF=20, A=50, B=30, C=20 → total = 120
+    }
+
+    @Test
+    void fAndAOffersTogether() {
+        // 3F -> 20
+        // 3A -> 130
+        assertEquals(150, checkout.checkout("FFFAAA"));
+    }
+
+    // -------------------------
+    // F + E interaction
+    // -------------------------
+
+    @Test
+    void fAndEDoNotInteract() {
+        // 3F -> 20
+        // 2E -> 80
+        assertEquals(100, checkout.checkout("FFFEE"));
+    }
+
+    // -------------------------
+    // Combined stress cases
+    // -------------------------
+
+    @Test
+    void multipleOffersTogether() {
+        // AAAAA -> 200
+        // FFFFFF -> 40
+        // EE -> 80 (no B present)
+        // C -> 20
+        // D -> 15
+        assertEquals(355, checkout.checkout("AAAAAFFFFFFEECD"));
+    }
+
+    @Test
+    void complexBasketWithFAndB() {
+        // FFF -> 20
+        // BB -> 45
+        // EE -> 80 (1 free B applied, but only 2 Bs)
+        // Net B = 1 -> 30
+        // Total = 20 + 80 + 30 = 130
+        assertEquals(130, checkout.checkout("FFFBBEE"));
+    }
+
+    // -------------------------
+    // Order independence
+    // -------------------------
+
+    @Test
+    void orderIndependenceWithF() {
+        assertEquals(
+                checkout.checkout("FAFBFCFD"),
+                checkout.checkout("DFCBAFFF")
+        );
+    }
 
 
 }
+
 

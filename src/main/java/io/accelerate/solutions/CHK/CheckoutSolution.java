@@ -46,10 +46,10 @@ public class CheckoutSolution {
                     total += prices[i] * itemQuantity;
                     break;
                 case 'F':
-                    if( itemQuantity > 3) {
+                    if( itemQuantity >= 3) {
                         basket.put('F', basket.get('F') - (itemQuantity / 2));
                     }
-                    total += prices[i] * itemQuantity;
+                    total += prices[i] * basket.get('F');
                     break;
                 default:
                     total += prices[i] * itemQuantity;
@@ -61,4 +61,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
