@@ -1,6 +1,8 @@
 package io.accelerate.solutions.CHK;
 
 import io.accelerate.runner.SolutionNotImplementedException;
+
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CheckoutSolution {
@@ -13,6 +15,7 @@ public class CheckoutSolution {
         System.out.println(skus);
 
         for (String sku : skus.split("-")) {
+            if (!Arrays.asList(items).contains(sku)) return -1;
             if (!basket.containsKey(sku)) {
                 basket.put(sku, 1);
             }
@@ -36,4 +39,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
