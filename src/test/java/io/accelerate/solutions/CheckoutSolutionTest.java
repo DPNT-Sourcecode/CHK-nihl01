@@ -347,4 +347,91 @@ public class CheckoutSolutionTest {
         assertTrue(total < 2000);
     }
 
+    // ---------- PRICE UPDATES ----------
+
+    @Test
+    void updatedPricesAreUsed() {
+        assertEquals(70, checkout.checkout("K"));
+        assertEquals(20, checkout.checkout("S"));
+        assertEquals(17, checkout.checkout("X"));
+        assertEquals(20, checkout.checkout("Y"));
+        assertEquals(21, checkout.checkout("Z"));
+    }
+
+    @Test
+    void updatedKMultiBuy() {
+        assertEquals(120, checkout.checkout("KK"));
+        assertEquals(190, checkout.checkout("KKK")); // 2K + 1K
+    }
+
+    // ---------- GROUP DISCOUNT BASIC ----------
+
+    @Test
+    void groupDiscountAnyThree() {
+        assertEquals(45, checkout.checkout("STX"));
+        assertEquals(45, checkout.checkout("XYZ"));
+        assertEquals(45, checkout.checkout("SSS"));
+        assertEquals(45, checkout.checkout("TTT"));
+    }
+
+    @Test
+    void groupDiscountWithRemainder() {
+        assertEquals(62, checkout.checkout("STXYZ")); // 45 + X(17)
+        assertEquals(65, checkout.checkout("SSST"));  // 45 + S(20)
+    }
+
+    @Test
+    void multipleGroupDiscounts() {
+        assertEquals(90, checkout.checkout("STXSTX"));   // two groups
+        assertEquals(135, checkout.checkout("SSSXXXYYY")); // three groups
+    }
+
+    // ---------- FAVOR CUSTOMER (EXPENSIVE FIRST) ----------
+
+    @Test
+    void mostExpensiveItemsDiscountedFirst() {
+        // Z(21), Y(20), X(17) should be grouped
+        assertEquals(62, checkout.checkout("XYZS")); // 45 + S(20)
+    }
+
+    @Test
+    void unevenPriceGroupSelection() {
+        // Z=21, Z=21, Y=20 grouped
+        // Remaining X=17
+        assertEquals(62, checkout.checkout("ZZYX"));
+    }
+
+    // ---------- INTERACTION WITH OTHER OFFERS ----------
+
+    @Test
+    void groupDiscountDoesNotAffectOtherOffers() {
+        // 3A for 130 + group discount
+        assertEquals(175, checkout.checkout("AAASTX"));
+    }
+
+    @Test
+    void groupDiscountWithFreeItemOffers() {
+        // EEB gives B free, STX grouped
+        assertEquals(125, checkout.checkout("EEBSTX"));
+    }
+
+    @Test
+    void groupDiscountAppliedBeforeUnitPricing() {
+        // Without group discount this would be 57
+        assertEquals(45, checkout.checkout("XYZ"));
+    }
+
+    // ---------- EDGE CASES ----------
+
+    @Test
+    void groupDiscountIgnoresNonGroupItems() {
+        assertEquals(85, checkout.checkout("STXA")); // 45 + A(50)
+    }
+
+    @Test
+    void insufficientGroupItemsNoDiscount() {
+        assertEquals(37, checkout.checkout("XY")); // X(17) + Y(20)
+    }
+
 }
+
