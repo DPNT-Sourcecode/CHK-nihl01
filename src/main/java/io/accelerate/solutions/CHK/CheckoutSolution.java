@@ -2,9 +2,10 @@ package io.accelerate.solutions.CHK;
 
 import io.accelerate.runner.SolutionNotImplementedException;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
@@ -37,6 +38,15 @@ public class CheckoutSolution {
         applySelfFree(count, 'U', 3);
 
         int total = 0;
+
+        // ----- GROUP DISCOUNT OFFERS -----
+        total += applyGroupDiscount(
+                count,
+                new char[]{'S','T','X','Y','Z'},
+                3,
+                45,
+                price
+        );
 
         // ----- MULTI-BUY OFFERS -----
         total += applyMulti(count, 'A', new int[][]{{5,200},{3,130}}, price);
@@ -82,9 +92,43 @@ public class CheckoutSolution {
         return total;
     }
 
+    private static int applyGroupDiscount(Map<Character, Integer> count,
+                                          char[] group,
+                                          int groupSize,
+                                          int groupPrice,
+                                          Map<Character, Integer> price) {
+
+        List<Character> items = new ArrayList<>();
+
+        // Expand items into a list
+        for (char c : group) {
+            int qty = count.getOrDefault(c, 0);
+            for (int i = 0; i < qty; i++) {
+                items.add(c);
+            }
+        }
+
+        // Sort descending by price (favor customer)
+        items.sort((a, b) -> price.get(b) - price.get(a));
+
+        int total = 0;
+        int index = 0;
+
+        while (index + groupSize <= items.size()) {
+            // Apply group price
+            total += groupPrice;
+
+            // Remove used items from count
+            for (int i = 0; i < groupSize; i++) {
+                char c = items.get(index + i);
+                count.put(c, count.get(c) - 1);
+            }
+
+            index += groupSize;
+        }
+
+        return total;
+    }
+
+
 }
-
-
-
-
-
