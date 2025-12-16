@@ -55,18 +55,18 @@ public class CheckoutSolution {
         return total;
     }
 
-    private static void applyFree(HashMap<Character, Integer> count, char trigger, int qty, char free) {
+    private static void applyFree(Map<Character, Integer> count, char trigger, int qty, char free) {
         int freeItems = count.getOrDefault(trigger, 0) / qty;
         count.put(free, Math.max(0,
                 count.getOrDefault(free, 0) - freeItems));
     }
 
-    private static void applySelfFree(HashMap<Character, Integer> count, char sku, int qty) {
+    private static void applySelfFree(Map<Character, Integer> count, char sku, int qty) {
         int c = count.getOrDefault(sku, 0);
         count.put(sku, c - (c / (qty + 1)));
     }
 
-    private static int applyMulti(HashMap<Character, Integer> count, char sku, int[][] offers, HashMap<Character, Integer> price) {
+    private static int applyMulti(Map<Character, Integer> count, char sku, int[][] offers, Map<Character, Integer> price) {
         int c = count.getOrDefault(sku, 0);
         int total = 0;
 
@@ -83,6 +83,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 

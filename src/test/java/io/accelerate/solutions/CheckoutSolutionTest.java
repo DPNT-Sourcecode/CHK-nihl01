@@ -34,7 +34,7 @@ public class CheckoutSolutionTest {
     // -------------------------
     // Empty & single items
     // -------------------------
-    
+
 
     @Test
     void singleItemPrices() {
@@ -348,4 +348,5 @@ public class CheckoutSolutionTest {
     }
 
 }
+
 
