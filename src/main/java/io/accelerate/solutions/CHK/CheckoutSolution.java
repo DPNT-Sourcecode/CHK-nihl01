@@ -73,5 +73,22 @@ public class CheckoutSolution {
 
         return total;
     }
+
+    private static void applyFree(Map<Character, Integer> count,
+                                  char trigger, int qty, char free) {
+        int freeItems = count.getOrDefault(trigger, 0) / qty;
+        count.put(free, Math.max(0,
+                count.getOrDefault(free, 0) - freeItems));
+    }
+
+    private static void applySelfFree(Map<Character, Integer> count,
+                                      char sku, int qty) {
+        int c = count.getOrDefault(sku, 0);
+        count.put(sku, c - (c / (qty + 1)));
+    }
+
+    
+
 }
+
 
