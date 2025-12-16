@@ -21,12 +21,12 @@ public class CheckoutSolution {
                 Map.entry('A', 50), Map.entry('B', 30), Map.entry('C', 20),
                 Map.entry('D', 15), Map.entry('E', 40), Map.entry('F', 10),
                 Map.entry('G', 20), Map.entry('H', 10), Map.entry('I', 35),
-                Map.entry('J', 60), Map.entry('K', 80), Map.entry('L', 90),
+                Map.entry('J', 60), Map.entry('K', 70), Map.entry('L', 90),
                 Map.entry('M', 15), Map.entry('N', 40), Map.entry('O', 10),
                 Map.entry('P', 50), Map.entry('Q', 30), Map.entry('R', 50),
-                Map.entry('S', 30), Map.entry('T', 20), Map.entry('U', 40),
-                Map.entry('V', 50), Map.entry('W', 20), Map.entry('X', 90),
-                Map.entry('Y', 10), Map.entry('Z', 50)
+                Map.entry('S', 20), Map.entry('T', 20), Map.entry('U', 40),
+                Map.entry('V', 50), Map.entry('W', 20), Map.entry('X', 17),
+                Map.entry('Y', 20), Map.entry('Z', 21)
         );
 
         // ----- FREE ITEM OFFERS -----
@@ -42,7 +42,7 @@ public class CheckoutSolution {
         total += applyMulti(count, 'A', new int[][]{{5,200},{3,130}}, price);
         total += applyMulti(count, 'B', new int[][]{{2,45}}, price);
         total += applyMulti(count, 'H', new int[][]{{10,80},{5,45}}, price);
-        total += applyMulti(count, 'K', new int[][]{{2,150}}, price);
+        total += applyMulti(count, 'K', new int[][]{{2,120}}, price);
         total += applyMulti(count, 'P', new int[][]{{5,200}}, price);
         total += applyMulti(count, 'Q', new int[][]{{3,80}}, price);
         total += applyMulti(count, 'V', new int[][]{{3,130},{2,90}}, price);
@@ -83,6 +83,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
